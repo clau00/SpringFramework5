@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.swing.text.View;
+
 @Slf4j
 @Controller
 public class GameController {
@@ -25,6 +27,7 @@ public class GameController {
         this.gameService = gameService;
     }
 
+    // == request methods ==
     @GetMapping(GameMappings.PLAY)
     public String play(Model model) {
         model.addAttribute(AttributeNames.MAIN_MESSAGE, gameService.getMainMessage());
@@ -44,4 +47,11 @@ public class GameController {
         gameService.checkGuess(guess);
         return GameMappings.REDIRECT_PLAY;
     }
+
+    @GetMapping(GameMappings.RESTART)
+    public String restart() {
+        gameService.reset();
+        return GameMappings.REDIRECT_PLAY;
+    }
+
 }
